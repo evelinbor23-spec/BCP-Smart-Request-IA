@@ -1,0 +1,829 @@
+{
+  "name": "BCP | Smart Request IA | v1",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "maxResults": 1,
+        "filters": {
+          "q": "subject:\"REQ -\""
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -576,
+        -112
+      ],
+      "id": "89f380bb-9d27-484f-b5af-9aacc5693584",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WwfOJAgSILyIpWu8",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appCl3l8wMg04OFVh",
+          "mode": "list",
+          "cachedResultName": "BC_Proyectos - Business Request AI Manager",
+          "cachedResultUrl": "https://airtable.com/appCl3l8wMg04OFVh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblUSjAcnwU4xDgXB",
+          "mode": "list",
+          "cachedResultName": "Requerimientos",
+          "cachedResultUrl": "https://airtable.com/appCl3l8wMg04OFVh/tblUSjAcnwU4xDgXB"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Solicitante": "={{ $json.From }}",
+            "Asunto": "={{ $json.Subject }}",
+            "Descripción": "={{ $json.snippet }}",
+            "Estado": "Pendiente",
+            "Mails": "={{ $json.From }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha de Ingreso",
+              "displayName": "Fecha de Ingreso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Solicitante",
+              "displayName": "Solicitante",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mails",
+              "displayName": "Mails",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando Aprobación",
+                  "value": "Esperando Aprobación"
+                },
+                {
+                  "name": "Aprobado por Humano",
+                  "value": "Aprobado por Humano"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Enviado",
+                  "value": "Enviado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tipo Solicitud",
+              "displayName": "Tipo Solicitud",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Dashboard ",
+                  "value": "Dashboard "
+                },
+                {
+                  "name": "Automatización",
+                  "value": "Automatización"
+                },
+                {
+                  "name": "Incidente",
+                  "value": "Incidente"
+                },
+                {
+                  "name": "Reporte",
+                  "value": "Reporte"
+                },
+                {
+                  "name": "Consulta",
+                  "value": "Consulta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad IA",
+              "displayName": "Prioridad IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Complejidad",
+              "displayName": "Complejidad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Equipo Responsable",
+              "displayName": "Equipo Responsable",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "BI",
+                  "value": "BI"
+                },
+                {
+                  "name": "Data Engineering",
+                  "value": "Data Engineering"
+                },
+                {
+                  "name": "Growth",
+                  "value": "Growth"
+                },
+                {
+                  "name": "Operaciones",
+                  "value": "Operaciones"
+                },
+                {
+                  "name": "Canales",
+                  "value": "Canales"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobación Humana",
+              "displayName": "Aprobación Humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Aprobada",
+                  "value": "Aprobada"
+                },
+                {
+                  "name": "Rechazada",
+                  "value": "Rechazada"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Comentarios IA",
+              "displayName": "Comentarios IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Logs_Errores",
+              "displayName": "Logs_Errores",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        -112
+      ],
+      "id": "9464a473-8894-4c19-b8f2-4562f2cd7c08",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "9SUdV7Kh7BrPoxFB",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Sos un Analista Senior de BC_Proyectos, una consultora especializada en transformación de negocios, automatización, analítica y gestión de proyectos.\n\nTu tarea es analizar un requerimiento recibido por un cliente y clasificarlo para facilitar su asignación interna.\n\nAnalizá la siguiente solicitud:\n\nASUNTO:\nREQ - Panel Comercial\n\nDESCRIPCIÓN:\nHola equipo de BC_Proyectos. Necesitamos desarrollar un tablero comercial para la gerencia. El tablero debe mostrar ventas por sucursal, evolución mensual y ranking de productos. Lo necesitamos antes de fin de mes.\n\nRespondé únicamente un JSON válido, sin explicaciones y sin formato Markdown, con la siguiente estructura:\n\n{\n  \"tipo_solicitud\": \"\",\n  \"prioridad\": \"\",\n  \"complejidad\": \"\",\n  \"equipo_responsable\": \"\",\n  \"comentarios_ia\": \"\"\n}\n\nReglas:\n\n- tipo_solicitud debe ser uno de estos valores:\n  Dashboard\n  Automatización\n  Consultoría\n  Capacitación\n  Power BI\n  Otro\n\n- prioridad debe ser:\n  Alta\n  Media\n  Baja\n\n- complejidad debe ser:\n  Alta\n  Media\n  Baja\n\n- equipo_responsable debe ser:\n  BI\n  Automatizaciones\n  Consultoría\n  PMO\n\n- comentarios_ia debe contener un breve resumen del motivo de la clasificación.\n\nNo agregues ningún texto fuera del JSON.\n\n"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -288,
+        16
+      ],
+      "id": "5195282b-7d0a-4993-aba1-030354930de6",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "OxlmaUkBoYJrENwd",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appCl3l8wMg04OFVh",
+          "mode": "list",
+          "cachedResultName": "BC_Proyectos - Business Request AI Manager",
+          "cachedResultUrl": "https://airtable.com/appCl3l8wMg04OFVh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblUSjAcnwU4xDgXB",
+          "mode": "list",
+          "cachedResultName": "Requerimientos",
+          "cachedResultUrl": "https://airtable.com/appCl3l8wMg04OFVh/tblUSjAcnwU4xDgXB"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Create a record').item.json.id }}",
+            "Estado": "Procesado por IA",
+            "Tipo Solicitud": "Dashboard ",
+            "Prioridad IA": "Alta",
+            "Complejidad": "Media",
+            "Equipo Responsable": "BI",
+            "Comentarios IA": "Clasificado automáticamente por Gemini.",
+            "Aprobación Humana": "Pendiente"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha de Ingreso",
+              "displayName": "Fecha de Ingreso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Solicitante",
+              "displayName": "Solicitante",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mails",
+              "displayName": "Mails",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando Aprobación",
+                  "value": "Esperando Aprobación"
+                },
+                {
+                  "name": "Aprobado por Humano",
+                  "value": "Aprobado por Humano"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Enviado",
+                  "value": "Enviado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tipo Solicitud",
+              "displayName": "Tipo Solicitud",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Dashboard ",
+                  "value": "Dashboard "
+                },
+                {
+                  "name": "Automatización",
+                  "value": "Automatización"
+                },
+                {
+                  "name": "Incidente",
+                  "value": "Incidente"
+                },
+                {
+                  "name": "Reporte",
+                  "value": "Reporte"
+                },
+                {
+                  "name": "Consulta",
+                  "value": "Consulta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad IA",
+              "displayName": "Prioridad IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Complejidad",
+              "displayName": "Complejidad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Equipo Responsable",
+              "displayName": "Equipo Responsable",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "BI",
+                  "value": "BI"
+                },
+                {
+                  "name": "Data Engineering",
+                  "value": "Data Engineering"
+                },
+                {
+                  "name": "Growth",
+                  "value": "Growth"
+                },
+                {
+                  "name": "Operaciones",
+                  "value": "Operaciones"
+                },
+                {
+                  "name": "Canales",
+                  "value": "Canales"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobación Humana",
+              "displayName": "Aprobación Humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Aprobada",
+                  "value": "Aprobada"
+                },
+                {
+                  "name": "Rechazada",
+                  "value": "Rechazada"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Comentarios IA",
+              "displayName": "Comentarios IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Logs_Errores",
+              "displayName": "Logs_Errores",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        -112
+      ],
+      "id": "ab70c7cd-6498-4907-b50a-a7636f018cec",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "9SUdV7Kh7BrPoxFB",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "bc.proyecto25@gmail.com",
+        "subject": "Aprobación requerida - Nuevo requerimiento BC_Proyectos",
+        "message": "=Hola,<br><br>\n\nSe recibió una nueva solicitud y fue procesada automáticamente por IA.<br><br>\n\nIngresá a Airtable para revisar la solicitud y aprobar o rechazar.<br><br>\n\nEstado actual: Pendiente revisión<br><br>\n\nBC_Proyectos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        -112
+      ],
+      "id": "41b4dd34-0577-4de0-a2eb-ae279c681740",
+      "name": "Send a message",
+      "webhookId": "166300c9-d2b1-4b96-82ac-68c36a186c2e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WwfOJAgSILyIpWu8",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bfcf4913-b101-498a-bace-4c8755e93500",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "326ef200eb8a47640eb185c4990d0d35827dfcc6abf1271cf8322c982e724113"
+  },
+  "nodeGroups": [],
+  "id": "PFewemFQdUyaziOc",
+  "tags": []
+}
