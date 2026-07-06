@@ -1,69 +1,59 @@
-# 🤖 Smart Request IA - BC_Proyectos
+🤖 Smart Request IA - BC_Proyectos
+📌 Descripción
 
-## 📌 Descripción
+Smart Request IA es una solución diseñada para automatizar la recepción, registro y clasificación inicial de solicitudes de clientes enviadas por correo electrónico.
 
-Smart Request IA es una solución desarrollada para automatizar la recepción y clasificación de solicitudes de clientes utilizando Inteligencia Artificial.
+El sistema combina automatización de procesos, Inteligencia Artificial generativa y validación humana para mejorar la trazabilidad, reducir tiempos operativos y estandarizar la gestión de requerimientos desde su ingreso.
 
-El flujo recibe un correo electrónico, registra la solicitud en Airtable, utiliza Google Gemini para analizar el requerimiento y clasificarlo automáticamente, actualiza la base de datos y notifica al equipo para su aprobación humana.
+🚀 Tecnologías utilizadas
+n8n
+Google Gemini
+Gmail API
+Airtable
+Inteligencia Artificial Generativa
+Human in the Loop
+🔄 Flujo del proceso
+Recepción de correo electrónico con filtro aplicado por asunto que contiene la referencia “REQ -”, asegurando que solo ingresen solicitudes válidas.
+Creación automática del registro del requerimiento en Airtable.
+Análisis del contenido del correo mediante Google Gemini.
+Intento de clasificación automática del requerimiento.
+Actualización del registro en caso de éxito o registro del error en caso de falla.
+En caso de error, envío automático de notificación al equipo responsable para su revisión.
+Derivación del caso a instancia de validación humana según corresponda.
+🧠 Clasificación automática
 
----
+La IA intenta determinar automáticamente:
 
-## 🚀 Tecnologías utilizadas
+Tipo de solicitud
+Prioridad
+Complejidad
+Equipo responsable
+Comentarios de análisis
 
-- n8n
-- Google Gemini
-- Gmail API
-- Airtable
-- Inteligencia Artificial Generativa
-- Human in the Loop
+En caso de no poder procesar la información, el sistema registra el error para asegurar trazabilidad y activar la alerta correspondiente.
 
----
+⚠️ Manejo de errores
 
-## 🔄 Flujo del proceso
+Cuando la IA no logra clasificar correctamente el requerimiento:
 
-1. Recepción de correo electrónico.
-2. Registro automático en Airtable.
-3. Análisis mediante Google Gemini.
-4. Clasificación automática del requerimiento.
-5. Actualización del registro.
-6. Notificación para aprobación humana.
+Se registra el error en Airtable
+Se mantiene la trazabilidad del caso
+Se envía una alerta automática al equipo responsable
+Se finaliza el flujo de automatización con notificación
+👤 Human in the Loop
 
----
+Cada requerimiento clasificado por la IA pasa a una instancia de revisión humana, donde el equipo valida la información antes de su gestión final.
 
-## 🧠 Clasificación automática
+📂 Archivos
+Workflow de n8n (.json)
+Documentación técnica
+Evidencia del flujo (capturas y ejecución)
+📈 Beneficios
+Automatiza la recepción de solicitudes.
+Estandariza el ingreso de información.
+Reduce tiempos de clasificación manual.
+Mejora la trazabilidad end-to-end del proceso.
+Incorpora IA generativa en la operación diaria.
+Permite detección y gestión de errores en tiempo real.
 
-La IA determina automáticamente:
-
-- Tipo de solicitud
-- Prioridad
-- Complejidad
-- Equipo responsable
-- Comentarios de análisis
-
----
-
-## 👤 Human in the Loop
-
-Antes de iniciar el desarrollo, un responsable revisa la clasificación realizada por la IA y aprueba o rechaza la solicitud.
-
----
-
-## 📂 Archivos
-
-- Workflow de n8n (.json)
-- Documentación técnica
-- Capturas del funcionamiento
-
----
-
-## 📈 Beneficios
-
-- Reduce tareas manuales.
-- Estandariza la recepción de solicitudes.
-- Disminuye tiempos de clasificación.
-- Mejora la trazabilidad.
-- Incorpora Inteligencia Artificial al proceso.
-
----
-
-**Proyecto desarrollado como Trabajo Final de Automatización con IA.**
+Proyecto desarrollado como Trabajo Final de Automatización con Inteligencia Artificial.
