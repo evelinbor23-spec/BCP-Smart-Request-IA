@@ -12,14 +12,14 @@
         },
         "maxResults": 1,
         "filters": {
-          "q": "subject:\"REQ -\""
+          "q": "subject:\"REQ -\" is:unread"
         }
       },
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.4,
       "position": [
-        -576,
-        -112
+        -800,
+        -96
       ],
       "id": "89f380bb-9d27-484f-b5af-9aacc5693584",
       "name": "Gmail Trigger",
@@ -348,8 +348,8 @@
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.2,
       "position": [
-        -400,
-        -112
+        -624,
+        -96
       ],
       "id": "9464a473-8894-4c19-b8f2-4562f2cd7c08",
       "name": "Create a record",
@@ -371,7 +371,7 @@
         "messages": {
           "values": [
             {
-              "content": "Sos un Analista Senior de BC_Proyectos, una consultora especializada en transformación de negocios, automatización, analítica y gestión de proyectos.\n\nTu tarea es analizar un requerimiento recibido por un cliente y clasificarlo para facilitar su asignación interna.\n\nAnalizá la siguiente solicitud:\n\nASUNTO:\nREQ - Panel Comercial\n\nDESCRIPCIÓN:\nHola equipo de BC_Proyectos. Necesitamos desarrollar un tablero comercial para la gerencia. El tablero debe mostrar ventas por sucursal, evolución mensual y ranking de productos. Lo necesitamos antes de fin de mes.\n\nRespondé únicamente un JSON válido, sin explicaciones y sin formato Markdown, con la siguiente estructura:\n\n{\n  \"tipo_solicitud\": \"\",\n  \"prioridad\": \"\",\n  \"complejidad\": \"\",\n  \"equipo_responsable\": \"\",\n  \"comentarios_ia\": \"\"\n}\n\nReglas:\n\n- tipo_solicitud debe ser uno de estos valores:\n  Dashboard\n  Automatización\n  Consultoría\n  Capacitación\n  Power BI\n  Otro\n\n- prioridad debe ser:\n  Alta\n  Media\n  Baja\n\n- complejidad debe ser:\n  Alta\n  Media\n  Baja\n\n- equipo_responsable debe ser:\n  BI\n  Automatizaciones\n  Consultoría\n  PMO\n\n- comentarios_ia debe contener un breve resumen del motivo de la clasificación.\n\nNo agregues ningún texto fuera del JSON.\n\n"
+              "content": "Sos un Analista Senior de BC_Proyectos.\n\nAnalizá la siguiente solicitud de un cliente.\n\nASUNTO:\n{{ $('Crear un registro').item.json.fields.Asunto }}\n\nDESCRIPCIÓN:\n{{ $('Crear un registro').item.json.fields.Descripción }}\n\nClasificá utilizando estos criterios:\n\nTIPO DE SOLICITUD (elegir solo uno):\n- Dashboard: creación o modificación de tableros e indicadores.\n- Automatización: automatización de procesos, reportes o tareas repetitivas.\n- Análisis de Datos: análisis exploratorio, calidad o interpretación de datos.\n- Consultoría: asesoramiento, diagnóstico o estrategia.\n- Desarrollo: implementación de soluciones o integraciones.\n- Soporte: incidencias, errores o consultas sobre soluciones existentes.\n\nPRIORIDAD:\n- Alta: afecta la operación, tiene fecha límite cercana o impacto crítico.\n- Media: importante pero puede planificarse.\n- Baja: mejora o consulta sin urgencia.\n\nCOMPLEJIDAD:\n- Baja: menos de una semana de trabajo.\n- Media: entre una y cuatro semanas.\n- Alta: requiere múltiples áreas, integraciones o varias semanas.\n\nEQUIPO RESPONSABLE:\n- BI\n- Automatizaciones\n- Consultoría\n- Datos\n- Desarrollo\n\nRespondé únicamente este JSON:\n\n{\n  \"tipo_solicitud\":\"\",\n  \"prioridad\":\"\",\n  \"complejidad\":\"\",\n  \"equipo_responsable\":\"\",\n  \"comentarios_ia\":\"\"\n}"
             }
           ]
         },
@@ -382,8 +382,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.2,
       "position": [
-        -288,
-        16
+        -464,
+        -96
       ],
       "id": "5195282b-7d0a-4993-aba1-030354930de6",
       "name": "Message a model",
@@ -394,7 +394,8 @@
           "id": "OxlmaUkBoYJrENwd",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -729,8 +730,8 @@
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.2,
       "position": [
-        -16,
-        -112
+        -128,
+        -96
       ],
       "id": "ab70c7cd-6498-4907-b50a-a7636f018cec",
       "name": "Update record",
@@ -751,12 +752,397 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        160,
-        -112
+        96,
+        -96
       ],
       "id": "41b4dd34-0577-4de0-a2eb-ae279c681740",
       "name": "Send a message",
       "webhookId": "166300c9-d2b1-4b96-82ac-68c36a186c2e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WwfOJAgSILyIpWu8",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appCl3l8wMg04OFVh",
+          "mode": "list",
+          "cachedResultName": "BC_Proyectos - Business Request AI Manager",
+          "cachedResultUrl": "https://airtable.com/appCl3l8wMg04OFVh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblUSjAcnwU4xDgXB",
+          "mode": "list",
+          "cachedResultName": "Requerimientos",
+          "cachedResultUrl": "https://airtable.com/appCl3l8wMg04OFVh/tblUSjAcnwU4xDgXB"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Create a record').item.json.id }}",
+            "Logs_Errores": "={{ $json.error }}",
+            "Estado": "Error"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha de Ingreso",
+              "displayName": "Fecha de Ingreso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Solicitante",
+              "displayName": "Solicitante",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Mails",
+              "displayName": "Mails",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Asunto",
+              "displayName": "Asunto",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Descripción",
+              "displayName": "Descripción",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Procesado por IA",
+                  "value": "Procesado por IA"
+                },
+                {
+                  "name": "Esperando Aprobación",
+                  "value": "Esperando Aprobación"
+                },
+                {
+                  "name": "Aprobado por Humano",
+                  "value": "Aprobado por Humano"
+                },
+                {
+                  "name": "Rechazado",
+                  "value": "Rechazado"
+                },
+                {
+                  "name": "Enviado",
+                  "value": "Enviado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tipo Solicitud",
+              "displayName": "Tipo Solicitud",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Dashboard ",
+                  "value": "Dashboard "
+                },
+                {
+                  "name": "Automatización",
+                  "value": "Automatización"
+                },
+                {
+                  "name": "Incidente",
+                  "value": "Incidente"
+                },
+                {
+                  "name": "Reporte",
+                  "value": "Reporte"
+                },
+                {
+                  "name": "Consulta",
+                  "value": "Consulta"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad IA",
+              "displayName": "Prioridad IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Complejidad",
+              "displayName": "Complejidad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Equipo Responsable",
+              "displayName": "Equipo Responsable",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "BI",
+                  "value": "BI"
+                },
+                {
+                  "name": "Data Engineering",
+                  "value": "Data Engineering"
+                },
+                {
+                  "name": "Growth",
+                  "value": "Growth"
+                },
+                {
+                  "name": "Operaciones",
+                  "value": "Operaciones"
+                },
+                {
+                  "name": "Canales",
+                  "value": "Canales"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobación Humana",
+              "displayName": "Aprobación Humana",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "Aprobada",
+                  "value": "Aprobada"
+                },
+                {
+                  "name": "Rechazada",
+                  "value": "Rechazada"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Comentarios IA",
+              "displayName": "Comentarios IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Logs_Errores",
+              "displayName": "Logs_Errores",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Equipo Responsable Rel",
+              "displayName": "Equipo Responsable Rel",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Nombre Equipo (from Equipo Responsable Rel)",
+              "displayName": "Nombre Equipo (from Equipo Responsable Rel)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -112,
+        64
+      ],
+      "id": "54b374a4-a00e-42dc-b3ec-64b48d3b7f2b",
+      "name": "Update record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "9SUdV7Kh7BrPoxFB",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "bc.proyecto25@gmail.com",
+        "subject": "⚠️ Error de procesamiento IA - Nuevo requerimiento",
+        "message": "Hola,<br><br>  Se produjo un error durante el procesamiento automático de un requerimiento.<br><br>  <b>El requerimiento quedó registrado en Airtable, pero la IA no pudo clasificarlo.</b><br><br>  Por favor, ingresar a Airtable para revisar el registro y volver a procesarlo cuando el servicio de IA esté disponible.<br><br>  Saludos,<br> <b>BC Smart Request IA</b>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        64
+      ],
+      "id": "610f1f51-5d98-4775-b8c0-e6e3a6dda8b1",
+      "name": "Send a message1",
+      "webhookId": "a1c6d346-7f04-432b-b64a-639c4e9e2077",
       "credentials": {
         "gmailOAuth2": {
           "id": "WwfOJAgSILyIpWu8",
@@ -797,6 +1183,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Update record1",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -810,6 +1203,17 @@
           }
         ]
       ]
+    },
+    "Update record1": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -818,7 +1222,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "bfcf4913-b101-498a-bace-4c8755e93500",
+  "versionId": "5cd216b2-493e-4c3e-82b5-5ac9830f6b09",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "326ef200eb8a47640eb185c4990d0d35827dfcc6abf1271cf8322c982e724113"
