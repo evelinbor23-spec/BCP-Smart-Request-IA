@@ -12,6 +12,7 @@ Gmail API
 Airtable
 Inteligencia Artificial Generativa
 Human in the Loop
+
 🔄 Flujo del proceso
 Recepción de correo electrónico con filtro aplicado por asunto que contiene la referencia “REQ -”, asegurando que solo ingresen solicitudes válidas.
 Creación automática del registro del requerimiento en Airtable.
@@ -20,8 +21,8 @@ Intento de clasificación automática del requerimiento.
 Actualización del registro en caso de éxito o registro del error en caso de falla.
 En caso de error, envío automático de notificación al equipo responsable para su revisión.
 Derivación del caso a instancia de validación humana según corresponda.
-🧠 Clasificación automática
 
+🧠 Clasificación automática
 La IA intenta determinar automáticamente:
 
 Tipo de solicitud
